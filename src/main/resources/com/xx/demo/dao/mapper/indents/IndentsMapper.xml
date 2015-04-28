@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xx.demo.dao.mapper.indents.IndentsMapper">
+
+	<!-- #####################客户信息管理######################## -->
+	<!-- 分页查询统计签字数量 -->
+	<select id="countIndentsByCondition" resultType="long"
+		parameterType="map">
+		select count(*) from indent
+		where 1=1
+		<include refid="indentWhere"/>
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	<select id="getIndentListByCondition" resultType="Indent"
+		parameterType="map">
+		select * from indent
+		where 1=1
+		<include refid="indentWhere"/>
+		order by ${orderField} ${orderDirection} limit
+		#{start}, #{num}
+	</select><!-- 分页查询签字列表 -->
+	
+	<!-- 这边改了个name -->
+	<sql id="indentWhere">
+       <if test="indentno != null and indentno !='' ">
+		  and indentno like CONCAT(CONCAT('%', #{indentno}),'%')  
+	   </if>
+      
+	</sql>
+	
+	<select id="getIndentById" parameterType="long" resultType="Indent">
+		select
+		* from indent where id = #{id}
+	</select>
+	
+	<select id="getIndentByIndentNo" parameterType="long" resultType="Indent">
+		select
+		* from indent where indentno = #{indentno}
+	</select>
+	
+	
+	<select id="getAllIndents" parameterType="long" resultType="Indent">
+		select 
+		* from indent
+	</select>
+
+
+</mapper>

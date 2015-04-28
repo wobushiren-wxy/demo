@@ -1,0 +1,52 @@
+8
+
+dir
+33
+http://zy-pc:81/svn/xmxx/dc/demo/WebContent/admin/managerInf
+http://zy-pc:81/svn/xmxx
+
+
+
+2014-08-29T06:19:42.231643Z
+27
+admin
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+0fb5fe9a-d7e6-d64a-9f2c-98a963fedebe
+
+editor.jsp
+file
+
+
+
+
+2014-08-30T10:30:06.664105Z
+2e2c8031a668695b7f1ea94c10a5e96f
+2014-08-29T06:19:42.231643Z
+27
+admin
+
+list.jsp
+file
+
+
+
+
+2014-08-30T10:30:06.674106Z
+a565fcd90b1485ce3495df333c55b854
+2014-08-29T06:19:42.231643Z
+27
+admin
+

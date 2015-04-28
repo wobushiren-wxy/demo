@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<include file="struts-default.xml" />
+	<constant name="struts.action.extension" value="action,,w,php" />
+	<constant name="struts.freemarker.templatesCache" value="true" />
+	<constant name="struts.enable.SlashesInActionNames" value="true" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.multipart.maxSize" value="10701096" />
+	<!-- 这个上线后要改为false -->
+	<constant name="struts.configuration.xml.reload" value="false" />
+	<constant name="struts.convention.result.path" value="/" />
+	<constant name="struts.convention.exclude.packages" value="org.apache.struts.*,org.springframework.web.struts.*,org.springframework.web.struts2.*,org.hibernate.*"/>
+	<constant name="struts.serve.static" value="true" />
+    <constant name="struts.serve.static.browserCache" value="false" />
+	
+	<package name="my-default" extends="struts-default" abstract="true">
+		<interceptors>
+			<interceptor name="commonCheck" class="com.xx.demo.web.interceptor.CommonCheckInterceptor" />
+			<interceptor-stack name="newDefaultStack">
+                <interceptor-ref name="defaultStack" />
+				<interceptor-ref name="commonCheck" />
+			</interceptor-stack>
+			<interceptor name="preprocessor" class="com.xx.demo.web.interceptor.DefaultInterceptor" />
+			<interceptor-stack name="default">
+				<interceptor-ref name="newDefaultStack" />
+				<interceptor-ref name="preprocessor" />
+			</interceptor-stack>
+			<interceptor name="json" class="com.googlecode.jsonplugin.JSONInterceptor" />
+		</interceptors>
+		<default-interceptor-ref name="default" />
+		<global-results>
+			<result name="unhandledException">/exception/stack</result>
+			<result name="handleException">/exception/handle</result>
+			
+			
+			<result name="index">/admin/index.jsp</result>
+			<result name="elehomepage">/elema/elehomepage.htm</result>
+
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="unhandledException" />
+		</global-exception-mappings>
+	</package>
+	
+	<package name="guinformations" extends="my-default">
+		<default-interceptor-ref name="default" />
+		<action name="guinformations/*" class="com.xx.demo.web.action.demo.GuinformationsAction"
+			method="{1}">
+		</action>	
+	</package>
+	
+	<package name="cartes" extends="my-default">
+		<default-interceptor-ref name="default" />
+		<action name="cartes/*" class="com.xx.demo.web.action.demo.CartesAction"
+			method="{1}">
+		</action>	
+	</package>
+	
+	<package name="indents" extends="my-default">
+		<default-interceptor-ref name="default" />
+		<action name="indents/*" class="com.xx.demo.web.action.demo.IndentsAction"
+			method="{1}">
+		</action>	
+	</package>
+	
+	<package name="subscribes" extends="my-default">
+		<default-interceptor-ref name="default" />
+		<action name="subscribes/*" class="com.xx.demo.web.action.demo.SubscribesAction"
+			method="{1}">
+		</action>	
+	</package>
+	
+	<package name="diningtables" extends="my-default">
+		<default-interceptor-ref name="default" />
+		<action name="diningtables/*" class="com.xx.demo.web.action.demo.DiningtablesAction"
+			method="{1}">
+		</action>	
+	</package>
+	
+	<package name="fooddevalus" extends="my-default">
+		<default-interceptor-ref name="default" />
+		<action name="fooddevalus/*" class="com.xx.demo.web.action.demo.FoodevaluationsAction"
+			method="{1}">
+		</action>	
+	</package>
+	
+
+	<!-- 后台管理 -->
+	<package name="admin" extends="my-default" namespace="/admin">
+		<default-interceptor-ref name="default" />
+		<!-- 后台登陆 -->	
+		<action name="login/*" class="com.xx.demo.web.action.admin.LoginAction"
+			method="{1}">
+			<result name="home">/admin/login.jsp</result>
+			<result name="success" type="redirect">index.jsp</result>
+			<result name="false" type="redirect">/admin/login.jsp</result>
+		</action>
+		<!-- 后台首页 -->
+		<action name="index" class="com.xx.demo.web.action.admin.LoginAction"
+			method="index">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+		</action>
+		
+		<!-- 管理员权限管理 -->
+		<action name="managerInf/*"
+			class="com.xx.demo.web.action.admin.AdminManagersInfAction" method="{1}">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+			<result name="list">/admin/managerInf/list.jsp</result>
+			<result name="add">/admin/managerInf/editor.jsp</result>
+			<result name="edit">/admin/managerInf/editor.jsp</result>
+		</action>
+		
+		<!-- 客户信息表管理 -->
+		<action name="guinformation/*"
+			class="com.xx.demo.web.action.admin.AdminGuinformationsAction" method="{1}">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+			<result name="list">/admin/guinformation/list.jsp</result>
+			<result name="add">/admin/guinformation/editor.jsp</result>
+			<result name="edit">/admin/guinformation/editor.jsp</result>
+		</action>
+		
+		<!-- 类别管理 -->
+		<action name="classes/*"
+			class="com.xx.demo.web.action.admin.AdminClassessAction" method="{1}">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+			<result name="list">/admin/classes/list.jsp</result>
+			<result name="add">/admin/classes/editor.jsp</result>
+			<result name="edit">/admin/classes/editor.jsp</result>
+		</action>
+		
+		<!-- 订单信息表管理 -->
+		<action name="indent/*"
+			class="com.xx.demo.web.action.admin.AdminIndentsAction" method="{1}">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+			<result name="list">/admin/indent/list.jsp</result>
+			<result name="add">/admin/indent/editor.jsp</result>
+			<result name="edit">/admin/indent/editor.jsp</result>
+		</action>
+		
+		<!-- 订单信息表管理 -->
+		<action name="subscribe/*"
+			class="com.xx.demo.web.action.admin.AdminSubscribesAction" method="{1}">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+			<result name="list">/admin/subscribe/list.jsp</result>
+			<result name="add">/admin/subscribe/editor.jsp</result>
+			<result name="edit">/admin/subscribe/editor.jsp</result>
+		</action>
+		
+		<!-- 菜单管理 -->
+		<action name="carte/*"
+			class="com.xx.demo.web.action.admin.AdminCartesAction" method="{1}">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+			<result name="list">/admin/carte/list.jsp</result>
+			<result name="add">/admin/carte/editor.jsp</result>
+			<result name="edit">/admin/carte/editor.jsp</result>
+		</action>
+		
+		<!-- 桌面管理 -->
+		<action name="diningtable/*"
+			class="com.xx.demo.web.action.admin.AdminDiningtablesAction" method="{1}">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+			<result name="list">/admin/diningtable/list.jsp</result>
+			<result name="add">/admin/diningtable/editor.jsp</result>
+			<result name="edit">/admin/diningtable/editor.jsp</result>
+		</action>
+		<!-- 餐饮店管理 -->
+		<action name="foodshop/*"
+			class="com.xx.demo.web.action.admin.AdminFoodshopsAction" method="{1}">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+			<result name="list">/admin/foodshop/list.jsp</result>
+			<result name="add">/admin/foodshop/editor.jsp</result>
+			<result name="edit">/admin/foodshop/editor.jsp</result>
+		</action>
+		
+			<!-- 菜评 -->
+		<action name="foodevaluation/*"
+			class="com.xx.demo.web.action.admin.AdminFoodevaluationsAction" method="{1}">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+			<result name="list">/admin/foodevaluation/list.jsp</result>
+			<result name="add">/admin/foodevaluation/editor.jsp</result>
+			<result name="edit">/admin/foodevaluation/editor.jsp</result>
+		</action>
+		
+		<!-- App管理 -->
+		<action name="appdownload/*"
+			class="com.xx.demo.web.action.admin.AdminAppdownloadsAction" method="{1}">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+			<result name="list">/admin/appdownload/list.jsp</result>
+			<result name="add">/admin/appdownload/editor.jsp</result>
+			<result name="edit">/admin/appdownload/editor.jsp</result>
+		</action>
+		
+		<!-- 图片表管理 -->
+		<action name="imgtransmission/*"
+			class="com.xx.demo.web.action.admin.AdminImgtransmissionsAction" method="{1}">
+			<interceptor-ref name="newDefaultStack"></interceptor-ref>
+			<result name="list">/admin/imgtransmission/list.jsp</result>
+			<result name="add">/admin/imgtransmission/editor.jsp</result>
+			<result name="edit">/admin/imgtransmission/editor.jsp</result>
+		</action>
+	</package>
+
+</struts>

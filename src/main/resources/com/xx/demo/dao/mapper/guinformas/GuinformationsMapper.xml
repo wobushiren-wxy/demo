@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xx.demo.dao.mapper.guinformas.GuinformationsMapper">
+
+	
+	
+	<!-- #####################客户信息管理######################## -->
+	<!-- 分页查询统计签字数量 -->
+	<select id="countGuinformationsByConditionAtguuser" resultType="long"
+		parameterType="map">
+		select count(*) from guinformation
+		where 1=1
+		<include refid="guinformationguuserWhere"/>
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	<select id="getGuinformationListByConditionAtguuser" resultType="Guinformation"
+		parameterType="map">
+		select * from guinformation
+		where 1=1
+		<include refid="guinformationguuserWhere"/>
+		order by ${orderField} ${orderDirection} limit
+		#{start}, #{num}
+	</select><!-- 分页查询签字列表 -->
+	
+	<!-- 这边改了个name为guuser -->
+	<sql id="guinformationguuserWhere">
+       <if test="guuser != null and guuser !='' ">
+		  and guuser like CONCAT(CONCAT('%', #{guuser}),'%')  
+	   </if>
+      
+	</sql>
+	
+	
+	<!-- 正常的 -->
+	<!-- 分页查询统计签字数量 -->
+	<select id="countGuinformationsByCondition" resultType="long"
+		parameterType="map">
+		select count(*) from guinformation
+		where 1=1
+		<include refid="guinformationWhere"/>
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	<select id="getGuinformationListByCondition" resultType="Guinformation"
+		parameterType="map">
+		select * from guinformation
+		where 1=1
+		<include refid="guinformationWhere"/>
+		order by ${orderField} ${orderDirection} limit
+		#{start}, #{num}
+	</select><!-- 分页查询签字列表 -->
+	
+	<!-- 这边改了个name -->
+	<sql id="guinformationWhere">
+       <if test="guname != null and guname !='' ">
+		  and guname like CONCAT(CONCAT('%', #{guname}),'%')  
+	   </if>
+      
+	</sql>
+	
+	<select id="getGuinformationById" parameterType="long" resultType="Guinformation">
+		select
+		* from guinformation where id = #{id}
+	</select>
+	
+	<select id="getAllGuinformations" parameterType="long" resultType="Guinformation">
+		select 
+		* from guinformation
+	</select>
+
+
+</mapper>

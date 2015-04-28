@@ -1,0 +1,33 @@
+.pageFormContent dl {
+	padding: 1px 0;
+}
+
+.pageFormContent dt {
+	width: 180px;
+	text-align: right;
+	font-weight: bold;
+}
+
+.pageFormContent dl.nowrap dd,.nowrap dd {
+	width: auto;
+}
+
+.pageFormContent label {
+	width: 80px;
+	text-align: right;
+	font-weight: bold;
+}
+
+span.error {
+	float: left;
+	display: block;
+	overflow: hidden;
+	width: auto;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+table.list a {
+	font-size: 12px;
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xx.demo.dao.mapper.diningtables.DiningtablesMapper">
+
+	<!-- #####################系统签字######################## -->
+	<!-- 分页查询统计签字数量 -->
+	<select id="countDiningtablesByCondition" resultType="long"
+		parameterType="map">
+		select count(*) from diningtable
+		where 1=1
+		<include refid="diningtableWhere"/>
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	<select id="getDiningtableListByCondition" resultType="Diningtable"
+		parameterType="map">
+		select * from diningtable
+		where 1=1
+		<include refid="diningtableWhere"/>
+		order by ${orderField} ${orderDirection} limit
+		#{start}, #{num}
+	</select><!-- 分页查询签字列表 -->
+	
+	<!-- 这边改了个name -->
+	<sql id="diningtableWhere">
+       <if test="dtname != null and dtname !='' ">
+		  and dtname like CONCAT(CONCAT('%', #{dtname}),'%')  
+	   </if>
+      
+	</sql>
+	
+	<select id="getDiningtableById" parameterType="long" resultType="Diningtable">
+		select
+		* from diningtable where id = #{id}
+	</select>
+	
+	<select id="getAllDiningtables" parameterType="long" resultType="Diningtable">
+		select
+		* from diningtable
+	</select> 
+	
+		<select id="getDiningtableByCondition" parameterType="map" resultType="Diningtable">
+		select * from diningtable
+			where dtno=#{dtno}
+		</select>
+
+
+</mapper>

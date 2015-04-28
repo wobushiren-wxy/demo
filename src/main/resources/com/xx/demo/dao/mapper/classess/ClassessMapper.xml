@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xx.demo.dao.mapper.classess.ClassessMapper">
+
+	<!-- #####################系统签字######################## -->
+	<!-- 分页查询统计签字数量 -->
+	<select id="countClassessByCondition" resultType="long"
+		parameterType="map">
+		select count(*) from classes
+		where 1=1
+		<include refid="classesWhere"/>
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	<select id="getClassesListByCondition" resultType="Classes"
+		parameterType="map">
+		select * from classes
+		where 1=1
+		<include refid="classesWhere"/>
+		order by ${orderField} ${orderDirection} limit
+		#{start}, #{num}
+	</select><!-- 分页查询签字列表 -->
+	
+	<!-- 这边改了个name -->
+	<sql id="classesWhere">
+       <if test="classesname != null and classesname !='' ">
+		  and classesname like CONCAT(CONCAT('%', #{classesname}),'%')  
+	   </if>
+      
+	</sql>
+	
+	<select id="getClassesById" parameterType="long" resultType="Classes">
+		select
+		* from classes where id = #{id}
+	</select>
+	
+	<select id="getAllClassess" parameterType="long" resultType="Classes">
+		select
+		* from classes
+	</select>
+
+
+</mapper>

@@ -1,0 +1,34 @@
+body,div {
+	font-family:verdana;
+	line-height:100%;
+	font-size:10pt;
+}
+input {
+	width:320px;
+}
+h1 {
+	text-align:center;
+	font-size:2.2em;
+}
+#divc {
+	border:1px solid #555;
+}
+.des {
+	width:500px;
+	background-color:lightyellow;
+	border:1px solid #555;
+	padding:25px;
+	margin-top:25px;
+}
+.mouseover {
+	color:#ffffff;
+	background-color:highlight;
+	width:100%;
+	cursor:default;
+}
+.mouseout {
+	color:#000;
+	width:100%;
+	background-color:#ffffff;
+	cursor:default;
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="com/xx/demo/dao/mapper/config/DefaultDbConfig.properties">
+	</properties>
+	<settings>
+		<setting name="cacheEnabled" value="true"/>
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="multipleResultSetsEnabled" value="true"/>
+		<setting name="useColumnLabel" value="true"/>
+		<setting name="useGeneratedKeys" value="false"/>
+		<setting name="defaultExecutorType" value="SIMPLE"/>
+		<setting name="defaultStatementTimeout" value="25000"/>
+	</settings>
+	
+	<!-- 这里记得修改 -->
+	<typeAliases>
+		<typeAlias alias="WordCat" type="com.xx.demo.model.pojo.WordCat" />
+		<typeAlias alias="ManagerInf" type="com.xx.demo.model.pojo.ManagerInf" />
+		<typeAlias alias="Guinformation" type="com.xx.demo.model.pojo.Guinformation" />
+		<typeAlias alias="Classes" type="com.xx.demo.model.pojo.Classes" />
+		<typeAlias alias="Indent" type="com.xx.demo.model.pojo.Indent" />
+		<typeAlias alias="Carte" type="com.xx.demo.model.pojo.Carte" />
+		<typeAlias alias="Foodshop" type="com.xx.demo.model.pojo.Foodshop" />
+		<typeAlias alias="Diningtable" type="com.xx.demo.model.pojo.Diningtable" />
+		<typeAlias alias="Foodevaluation" type="com.xx.demo.model.pojo.Foodevaluation" />
+		<typeAlias alias="Appdownload" type="com.xx.demo.model.pojo.Appdownload" />
+		<typeAlias alias="Imgtransmission" type="com.xx.demo.model.pojo.Imgtransmission" />
+		<typeAlias alias="Subscribe" type="com.xx.demo.model.pojo.Subscribe" />
+	</typeAliases>
+	<environments default="prodution">
+		<environment id="prodution">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+				<property name="driver.encoding" value="UTF8" />
+				<property name="poolMaximumActiveConnections" value="10" />
+				<property name="poolMaximumIdleConnections" value="2" />
+				<property name="poolMaximumCheckoutTime" value="20000" />
+				<property name="poolTimeToWait" value="20000" />
+				<property name="poolPingQuery" value="select now()" />
+				<property name="poolPingEnabled" value="true" />
+				<property name="poolPingConnectionsNotUsedFor" value="10000" />
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 这里记得修改 -->
+	<mappers>
+		<mapper resource="com/xx/demo/dao/mapper/login/LoginMapper.xml" />
+	    <mapper resource="com/alonew/db/mapper/CommonMapper.xml" />
+	    <mapper resource="com/xx/demo/dao/mapper/words/WordsCatMapper.xml" />
+	    <mapper resource="com/xx/demo/dao/mapper/managers/ManagersInfMapper.xml" />
+	    <mapper resource="com/xx/demo/dao/mapper/classess/ClassessMapper.xml" />
+		<mapper resource="com/xx/demo/dao/mapper/guinformas/GuinformationsMapper.xml" />
+		<mapper resource="com/xx/demo/dao/mapper/indents/IndentsMapper.xml" />
+		
+		<mapper resource="com/xx/demo/dao/mapper/subscribes/SubscribesMapper.xml" />
+		
+		<mapper resource="com/xx/demo/dao/mapper/cartes/CartesMapper.xml" />
+	    <mapper resource="com/xx/demo/dao/mapper/diningtables/DiningtablesMapper.xml" />
+	    <mapper resource="com/xx/demo/dao/mapper/foodshops/FoodshopsMapper.xml" />
+	    <mapper resource="com/xx/demo/dao/mapper/fooddevalus/FoodevaluationsMapper.xml" />
+	     <mapper resource="com/xx/demo/dao/mapper/appdowns/AppdownloadsMapper.xml" />
+	     <mapper resource="com/xx/demo/dao/mapper/imgtrans/ImgtransmissionsMapper.xml" />
+	</mappers>
+</configuration>

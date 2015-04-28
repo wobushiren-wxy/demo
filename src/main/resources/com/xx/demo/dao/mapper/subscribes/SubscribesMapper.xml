@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xx.demo.dao.mapper.subscribes.SubscribesMapper">
+
+	
+	
+	<!-- #####################客户信息管理######################## -->
+	<!-- 分页查询统计签字数量 -->
+	<select id="countSubscribesByConditionAtsubno" resultType="long"
+		parameterType="map">
+		select count(*) from subscribe
+		where 1=1
+		<include refid="subscribesubnoWhere"/>
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	<select id="getSubscribeListByConditionAtsubno" resultType="Subscribe"
+		parameterType="map">
+		select * from subscribe
+		where 1=1
+		<include refid="subscribesubnoWhere"/>
+		order by ${orderField} ${orderDirection} limit
+		#{start}, #{num}
+	</select><!-- 分页查询签字列表 -->
+	
+	<!-- 这边改了个name为subno -->
+	<sql id="subscribesubnoWhere">
+       <if test="subno != null and subno !='' ">
+		  and subno like CONCAT(CONCAT('%', #{subno}),'%')  
+	   </if>
+      
+	</sql>
+	
+	
+	<!-- 正常的 -->
+	<!-- 分页查询统计签字数量 -->
+	<select id="countSubscribesByCondition" resultType="long"
+		parameterType="map">
+		select count(*) from subscribe
+		where 1=1
+		<include refid="subscribeWhere"/>
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	<select id="getSubscribeListByCondition" resultType="Subscribe"
+		parameterType="map">
+		select * from subscribe
+		where 1=1
+		<include refid="subscribeWhere"/>
+		order by ${orderField} ${orderDirection} limit
+		#{start}, #{num}
+	</select><!-- 分页查询签字列表 -->
+	
+	<!-- 这边改了个name -->
+	<sql id="subscribeWhere">
+       <if test="guname != null and guname !='' ">
+		  and guname like CONCAT(CONCAT('%', #{guname}),'%')  
+	   </if>
+      
+	</sql>
+	
+	<select id="getSubscribeById" parameterType="long" resultType="Subscribe">
+		select
+		* from subscribe where id = #{id}
+	</select>
+	
+	<select id="getAllSubscribes" parameterType="long" resultType="Subscribe">
+		select 
+		* from subscribe
+	</select>
+
+
+</mapper>

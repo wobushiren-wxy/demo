@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xx.demo.dao.mapper.foodshops.FoodshopsMapper">
+
+	<!-- #####################系统签字######################## -->
+	<!-- 分页查询统计签字数量 -->
+	<select id="countFoodshopsByCondition" resultType="long"
+		parameterType="map">
+		select count(*) from foodshop
+		where 1=1
+		<include refid="foodshopWhere"/>
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	<select id="getFoodshopListByCondition" resultType="Foodshop"
+		parameterType="map">
+		select * from foodshop
+		where 1=1
+		<include refid="foodshopWhere"/>
+		order by ${orderField} ${orderDirection} limit
+		#{start}, #{num}
+	</select><!-- 分页查询签字列表 -->
+	
+	<!-- 这边改了个name -->
+	<sql id="foodshopWhere">
+       <if test="fsname != null and fsname !='' ">
+		  and fsname like CONCAT(CONCAT('%', #{fsname}),'%')  
+	   </if>
+      
+	</sql>
+	
+	<select id="getFoodshopById" parameterType="long" resultType="Foodshop">
+		select
+		* from foodshop where id = #{id}
+	</select>
+	
+	<select id="getAllFoodshops" parameterType="long" resultType="Foodshop">
+		select
+		* from foodshop
+	</select>
+
+
+</mapper>

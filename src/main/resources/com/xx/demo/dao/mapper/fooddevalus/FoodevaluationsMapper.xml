@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xx.demo.dao.mapper.fooddevalus.FoodevaluationsMapper">
+
+	<!-- #####################客户信息管理######################## -->
+	<!-- 分页查询统计签字数量 -->
+	<select id="countFoodevaluationsByCondition" resultType="long"
+		parameterType="map">
+		select count(*) from foodevaluation
+		where 1=1
+		<include refid="foodevaluationWhere"/>
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	<select id="getFoodevaluationListByCondition" resultType="Foodevaluation"
+		parameterType="map">
+		select * from foodevaluation
+		where 1=1
+		<include refid="foodevaluationWhere"/>
+		order by ${orderField} ${orderDirection} limit
+		#{start}, #{num}
+	</select><!-- 分页查询签字列表 -->
+	
+	<!-- 通过Carteno和Guuser查询菜评列表 -->
+	<select id="getFoodevaluationListCartenoByCondition" resultType="Foodevaluation"
+		parameterType="map">
+		select * from foodevaluation
+		where carteno = #{carteno}
+		order by ${orderField} ${orderDirection} 
+		limit #{start}, #{num}
+	</select><!-- 通过Carteno和Guuser查询菜评列表 -->
+	
+	<!-- 这边改了个name -->
+	<sql id="foodevaluationWhere">
+       <if test="carteno != null and carteno !='' ">
+		  and carteno like CONCAT(CONCAT('%', #{carteno}),'%')  
+	   </if>
+      
+	</sql>
+	
+	<select id="getFoodevaluationById" parameterType="long" resultType="Foodevaluation">
+		select
+		* from foodevaluation where id = #{id}
+	</select>
+	
+	<select id="getAllFoodevaluations" parameterType="long" resultType="Foodevaluation">
+		select 
+		* from foodevaluation
+	</select>
+
+
+</mapper>

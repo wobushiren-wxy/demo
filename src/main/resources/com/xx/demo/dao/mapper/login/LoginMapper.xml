@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xx.demo.dao.mapper.login.LoginMapper">
+
+	<!-- #####################登陆系统######################## -->
+
+	<!--登陆验证-->
+<!-- 	<select id="getManagerInfListByCondition" resultType="ManagerInf"
+		parameterType="map">
+		select miuser,mipwd,jurisdiction from managerinf
+		where 1=1
+		 <if test="miuser != null and miuser !='' ">
+		and miuser=? and mipwd=?
+		</if>
+	</select>
+	 -->
+	 <!--后台登陆验证-->
+		<select id="getLoginByCondition" resultType="ManagerInf"
+			parameterType="map">
+		select * from managerinf
+			where miuser=#{miuser} and mipwd =#{mipwd} 
+		</select>
+
+	 <!--客户端登陆验证-->
+		<select id="getGuinformationLoginByCondition" resultType="Guinformation"
+			parameterType="map">
+		select * from guinformation
+			where guuser=#{guuser} and gupwd =#{gupwd} 
+		</select>
+</mapper>

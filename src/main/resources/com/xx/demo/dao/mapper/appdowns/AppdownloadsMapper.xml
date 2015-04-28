@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xx.demo.dao.mapper.appdowns.AppdownloadsMapper">
+
+	<!-- #####################客户信息管理######################## -->
+	<!-- 分页查询统计签字数量 -->
+	<select id="countAppdownloadsByCondition" resultType="long"
+		parameterType="map">
+		select count(*) from appdownload
+		where 1=1
+		<include refid="appdownloadWhere"/>
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	<select id="getAppdownloadListByCondition" resultType="Appdownload"
+		parameterType="map">
+		select * from appdownload
+		where 1=1
+		<include refid="appdownloadWhere"/>
+		order by ${orderField} ${orderDirection} limit
+		#{start}, #{num}
+	</select><!-- 分页查询签字列表 -->
+	
+	<!-- 这边改了个appver -->
+	<sql id="appdownloadWhere">
+       <if test="appver != null and appver !='' ">
+		  and appver like CONCAT(CONCAT('%', #{appver}),'%')  
+	   </if>
+	</sql>
+	
+	<select id="getAppdownloadById" parameterType="long" resultType="Appdownload">
+		select
+		* from appdownload where id = #{id}
+	</select>
+	
+	<select id="getAllAppdownloads" parameterType="long" resultType="Appdownload">
+		select 
+		* from appdownload
+	</select>
+
+</mapper>

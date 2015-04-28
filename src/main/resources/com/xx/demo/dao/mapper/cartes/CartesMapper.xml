@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xx.demo.dao.mapper.cartes.CartesMapper">
+
+	<!-- #####################系统签字######################## -->
+	<!-- 分页查询统计签字数量 -->
+	<select id="countCartesByCondition" resultType="long"
+		parameterType="map">
+		select count(*) from carte
+		where 1=1
+		<include refid="carteWhere"/>
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	
+	<!-- 分页查询统计签字数量 -->
+	<select id="getCartesByCondition" resultType="Carte"
+		parameterType="map">
+		select * from carte
+		where carteno= #{carteno}
+		
+	</select>
+
+	<!-- 分页查询签字列表 -->
+	
+	
+	
+	
+	<select id="getCarteListByCondition" resultType="Carte"
+		parameterType="map">
+		select * from carte
+		where 1=1
+		<include refid="carteWhere"/>
+		order by ${orderField} ${orderDirection} limit
+		#{start}, #{num}
+	</select>
+	
+	
+	
+	<!-- 分页查询签字列表 -->
+	<!-- 这边改了个name -->
+	<sql id="carteWhere">
+       <if test="cartename != null and cartename !='' ">
+		  and cartename like CONCAT(CONCAT('%', #{cartename}),'%')  
+	   </if>
+      
+	</sql>
+	
+	<select id="getCarteById" parameterType="long" resultType="Carte">
+		select
+		* from carte where id = #{id}
+	</select>
+	
+	<select id="getAllCartes" parameterType="long" resultType="Carte">
+		select
+		* from carte
+	</select>
+
+
+</mapper>
